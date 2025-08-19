@@ -14,7 +14,7 @@ def checker(account_number):
 
 def account_checker(customer_account_number):
     line_number=0
-    with open("Bank_data.txt", "r") as f:
+    with open("Bank_Data.txt", "r") as f:
         f.seek(0)
         for i in f:
             line_number+=1
@@ -23,7 +23,7 @@ def account_checker(customer_account_number):
             if(int(account_number)==int(customer_account_number)):
                 return(True,line_number)
         print("Account not Found, Try Again")
-        return(False,int(customer_account_number))
+        return(False,None)
             
 print("WELCOME to Shashwat Bank of Interest!!!!\n\n")
 reply=input("Enter A to Access your Account or Enter M to make a new Account: ")
@@ -39,7 +39,7 @@ if reply=='M':
         data=()
         print("Please wait we are saving your Account details....")
         data= f"{account_number},{name},{credit}\n"
-        with open("Bank_data.txt","a") as f:
+        with open("Bank_Data.txt","a") as f:
             f.write(data)
         print("Your Account has been created--")
     else:
@@ -76,7 +76,7 @@ elif(reply.upper() == "A"):
             account_number, name, balance = lines[line_number].strip().split(",")
             debit = int(input("Enter Amount to be Debit: "))
             balance = int(balance) - debit
-            if(balance>0):
+            if(balance<0):
                 print("Transaction not possible")
                 sys.exit()
             print("Your new Balance is :",int(balance))
@@ -85,4 +85,5 @@ elif(reply.upper() == "A"):
             with open("Bank_Data.txt", "w") as file:
                 file.writelines(lines)
     elif(bol==False):
+
         sys.exit()
